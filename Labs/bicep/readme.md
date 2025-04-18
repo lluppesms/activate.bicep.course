@@ -37,7 +37,10 @@ This workshop will cover a series of labs, in which you will learn to create eff
 
 * Lab 1.1 - Setting up an Azure DevOps Project - See Module 2: Project, Lab 1
 * Lab 1.2 - Tooling with Visual Studio Code - See Module 4, Lab 1, Task 3
-* Make sure your Lab VM's VS Code has the Bicep extension installed.
+* Make sure your Lab VM's VS Code has the Bicep extension installed. Click on the `Manage` icon in the left-hand menu, and then click on `Extensions`. Search for `Bicep` and install it if it is not already installed.
+![Bicep VS Code Extension](../../img/Bicep-VSCode-Extension.png)
+
+---
 
 ### Introduction To Bicep
 
