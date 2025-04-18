@@ -1,41 +1,49 @@
 // --------------------------------------------------------------------------------
-// This BICEP file will create KeyVault secret for a storage account connection
+// This BICEP file will create a KeyVault secret
 //   if existingSecretNames list is supplied: 
 //     ONLY create if secretName is not in existingSecretNames list
 //     OR forceSecretCreation is true
 // --------------------------------------------------------------------------------
-param keyVaultName string = 'myKeyVault'
-param secretName string = 'mySecretName'
-param storageAccountName string = 'myStorageAccountName'
-param enabledDate string = utcNow()
-param expirationDate string = dateTimeAdd(utcNow(), 'P2Y')
+metadata description = 'Creates or updates a secret in an Azure Key Vault.'
+param keyVaultName string
+param secretName string
+param tags object = {}
+param contentType string = 'string'
+@description('The value of the secret. Provide only derived values like blob storage access, but do not hard code any secrets in your templates')
+@secure()
+param secretValue string
 param existingSecretNames string = ''
 param forceSecretCreation bool = false
+
+param enabled bool = true
+param enabledDate string = utcNow()
+param expirationDate string = dateTimeAdd(utcNow(), 'P2Y')
 
 // --------------------------------------------------------------------------------
 var secretExists = contains(toLower(existingSecretNames), ';${toLower(trim(secretName))};')
 
-resource storageAccountResource 'Microsoft.Storage/storageAccounts@2021-04-01' existing = { name: storageAccountName }
-var accountKey = storageAccountResource.listKeys().keys[0].value
-var storageAccountConnectionString = 'DefaultEndpointsProtocol=https;AccountName=${storageAccountResource.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${accountKey}'
-
-// --------------------------------------------------------------------------------
-resource keyVaultResource 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
+resource keyVaultResource 'Microsoft.KeyVault/vaults@2023-07-01' existing = {
   name: keyVaultName
 }
 
-resource createSecretValue 'Microsoft.KeyVault/vaults/secrets@2021-04-01-preview' = if (!secretExists || forceSecretCreation) {
+resource keyVaultSecret 'Microsoft.KeyVault/vaults/secrets@2023-07-01' = if (!secretExists || forceSecretCreation) {
   name: secretName
+  tags: tags
   parent: keyVaultResource
   properties: {
-    value: storageAccountConnectionString
     attributes: {
+      enabled: enabled
       exp: dateTimeToEpoch(expirationDate)
       nbf: dateTimeToEpoch(enabledDate)
     }
+    contentType: contentType
+    value: secretValue
   }
 }
+
 
 var createMessage = secretExists ? 'Secret ${secretName} already exists!' : 'Added secret ${secretName}!'
 output message string = secretExists && forceSecretCreation ? 'Secret ${secretName} already exists but was recreated!' : createMessage
 output secretCreated bool = !secretExists
+output secretUri string = keyVaultSecret.properties.secretUri
+output secretName string = secretName

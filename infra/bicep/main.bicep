@@ -1,24 +1,22 @@
 // --------------------------------------------------------------------------------
 // Main Bicep file that creates all of the Azure Resources for one environment
 // --------------------------------------------------------------------------------
+param appName string = take('myapp${uniqueString(resourceGroup().id)}',12)
+@allowed(['dev','demo','qa','stg','ct','prod'])
 param environmentCode string = 'dev'
 param location string = resourceGroup().location
 param keyVaultOwnerUserId string = ''
 
-// optional parameters
-@allowed(['Standard_LRS','Standard_GRS','Standard_RAGRS'])
-param storageSku string = 'Standard_LRS'
-//param functionName string = 'process'
-param functionAppSku string = 'Y1'
-param functionAppSkuFamily string = 'Y'
-param functionAppSkuTier string = 'Dynamic'
-param keyVaultOwnerIpAddress string = ''
+// this is a parameter because I can use the function here - I never expect it to be passed
 param runDateTime string = utcNow()
 
 // --------------------------------------------------------------------------------
+// a suffix to put on all of the deployment names to make them unique
 var deploymentSuffix = '-${runDateTime}'
+// Tags that are common to all resources
 var commonTags = {         
   LastDeployed: runDateTime
+  Application: appName
   Environment: environmentCode
 }
 
@@ -26,64 +24,50 @@ var commonTags = {
 module resourceNames 'resourcenames.bicep' = {
   name: 'resourcenames${deploymentSuffix}'
   params: {
+    appName: appName
     environmentCode: environmentCode
-    location: location
-    functionStorageNameSuffix: 'func'
-    dataStorageNameSuffix: 'data'
   }
 }
-
 // --------------------------------------------------------------------------------
-module logAnalyticsWorkspaceModule 'loganalyticsworkspace.bicep' = {
+module logAnalyticsWorkspaceModule 'loganalytics.bicep' = {
   name: 'logAnalytics${deploymentSuffix}'
   params: {
-    logAnalyticsWorkspaceName: resourceNames.outputs.logAnalyticsWorkspaceName
+    workspaceName: resourceNames.outputs.logAnalyticsWorkspaceName
     location: location
     commonTags: commonTags
   }
 }
 
-// --------------------------------------------------------------------------------
 module functionStorageModule 'storageaccount.bicep' = {
   name: 'functionstorage${deploymentSuffix}'
   params: {
     storageAccountName: resourceNames.outputs.functionStorageName
     location: location
     commonTags: commonTags
-    storageSku: storageSku
-    containerNames: []
   }
 }
+
+module functionModule 'functionapp.bicep' = {
+  name: 'function${deploymentSuffix}'
+  dependsOn: [ functionStorageModule ]
+  params: {
+    functionAppName: resourceNames.outputs.functionAppName
+    functionAppServicePlanName: resourceNames.outputs.functionAppServicePlanName
+    functionInsightsName: resourceNames.outputs.functionInsightsName
+    appInsightsLocation: location
+    location: location
+    commonTags: commonTags
+    functionStorageAccountName: functionStorageModule.outputs.name
+    workspaceId: logAnalyticsWorkspaceModule.outputs.id
+  }
+}
+
 module dataStorageModule 'storageaccount.bicep' = {
   name: 'datastorage${deploymentSuffix}'
   params: {
     storageAccountName: resourceNames.outputs.dataStorageName
     location: location
     commonTags: commonTags
-    storageSku: storageSku
-    containerNames: [
-      'inputfiles'
-      'outputfiles'
-    ]
-  }
-}
-module functionModule 'functionpythonapp.bicep' = {
-  name: 'functionApp${deploymentSuffix}'
-  dependsOn: [ functionStorageModule ]
-  params: {
-    functionAppName: resourceNames.outputs.functionAppName
-    functionAppServicePlanName: resourceNames.outputs.functionAppServicePlanName
-    functionInsightsName: resourceNames.outputs.functionInsightsName
-
-    appInsightsLocation: location
-    location: location
-    commonTags: commonTags
-
-    functionAppSku: functionAppSku
-    functionAppSkuFamily: functionAppSkuFamily
-    functionAppSkuTier: functionAppSkuTier
-    functionStorageAccountName: functionStorageModule.outputs.name
-    workspaceId: logAnalyticsWorkspaceModule.outputs.id
   }
 }
 module keyVaultModule 'keyvault.bicep' = {
@@ -93,18 +77,13 @@ module keyVaultModule 'keyvault.bicep' = {
     keyVaultName: resourceNames.outputs.keyVaultName
     location: location
     commonTags: commonTags
-    adminUserObjectIds: []
-    keyVaultOwnerUserId: keyVaultOwnerUserId
+    adminUserObjectIds: keyVaultOwnerUserId == '' ? [] : [ keyVaultOwnerUserId ]
     applicationUserObjectIds: [ functionModule.outputs.principalId ]
-    keyVaultOwnerIpAddress: keyVaultOwnerIpAddress
-    enableSoftDelete: false
-    createUserAssignedIdentity: true
     workspaceId: logAnalyticsWorkspaceModule.outputs.id
   }
 }
-
 module keyVaultSecretList 'keyvaultlistsecretnames.bicep' = {
-  name: 'keyVault-Secret-List-Names${deploymentSuffix}'
+  name: 'keyVaultSecretListNames${deploymentSuffix}'
   dependsOn: [ keyVaultModule ]
   params: {
     keyVaultName: keyVaultModule.outputs.name
@@ -112,29 +91,8 @@ module keyVaultSecretList 'keyvaultlistsecretnames.bicep' = {
     userManagedIdentityId: keyVaultModule.outputs.userManagedIdentityId
   }
 }
-
-module keyVaultSecret1 'keyvaultsecret.bicep' = {
-  name: 'keyVaultSecret1${deploymentSuffix}'
-  dependsOn: [ keyVaultModule, functionModule ]
-  params: {
-    keyVaultName: keyVaultModule.outputs.name
-    secretName: 'functionAppInsightsKey'
-    secretValue: functionModule.outputs.insightsKey
-    existingSecretNames: keyVaultSecretList.outputs.secretNameList
-  }
-}
-module keyVaultSecret2 'keyvaultsecretstorageconnection.bicep' = {
-  name: 'keyVaultSecret2${deploymentSuffix}'
-  dependsOn: [ keyVaultModule, functionStorageModule ]
-  params: {
-    keyVaultName: keyVaultModule.outputs.name
-    secretName: 'functionStorageAccountConnectionString'
-    storageAccountName: functionStorageModule.outputs.name
-    existingSecretNames: keyVaultSecretList.outputs.secretNameList
-  }
-}
-module keyVaultSecret3 'keyvaultsecretstorageconnection.bicep' = {
-  name: 'keyVaultSecret3${deploymentSuffix}'
+module keyVaultSecretStorage 'keyvaultsecretstorageconnection.bicep' = {
+  name: 'keyVaultSecretStorage${deploymentSuffix}'
   dependsOn: [ keyVaultModule, dataStorageModule ]
   params: {
     keyVaultName: keyVaultModule.outputs.name
@@ -143,19 +101,14 @@ module keyVaultSecret3 'keyvaultsecretstorageconnection.bicep' = {
     existingSecretNames: keyVaultSecretList.outputs.secretNameList
   }
 }
-module functionAppSettingsModule 'functionpythonappsettings.bicep' = {
+module functionAppSettingsModule 'functionappsettings.bicep' = {
   name: 'functionAppSettings${deploymentSuffix}'
-  dependsOn: [ keyVaultSecret1, keyVaultSecret2, keyVaultSecret3, ]
   params: {
     functionAppName: functionModule.outputs.name
-    functionStorageAccountName: functionModule.outputs.storageAccountName
+    functionStorageAccountName: functionStorageModule.outputs.name
     functionInsightsKey: functionModule.outputs.insightsKey
     customAppSettings: {
       DataStorageConnectionAppSetting: '@Microsoft.KeyVault(VaultName=${keyVaultModule.outputs.name};SecretName=DataStorageConnectionAppSetting)'
     }
   }
 }
-
-output resourceToken string = resourceNames.outputs.resourceToken
-output appName string = resourceNames.outputs.functionAppName
-output hostName string = functionModule.outputs.defaultHostName
