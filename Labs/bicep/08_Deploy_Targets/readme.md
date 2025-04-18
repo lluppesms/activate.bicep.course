@@ -2,6 +2,8 @@
 
 Up to this point, we have been deploying everything directly into a resource group. But what if we wanted to deploy at another level, like create a NEW resource group? Or deploy to a subscription, management group or tenant?
 
+> NOTE: This lab will not work in the Learning On Demand (LOD) environment, as it does not have security access to the Azure Subscription.  You can run this lab in your own Azure subscription if you want to do this.
+
 ## Using Scope in your deploys
 
 In order to deploy at a subscription level, you do need to have the correct permissions. Therefore for this lab, we will be examining the Bicep, but will not be actually deploying it.

@@ -2,6 +2,8 @@
 
 In this lab we will walk through the process of creating our own private registry and then deploying modules using the modules from that registry.
 
+> NOTE: This lab will not work in the Learning On Demand (LOD) environment, as it does not have access to the Azure Container Registry (ACR) service.  You can run this lab in your own Azure subscription if you want to do this.
+
 ## Create your own Azure Container Registry
 
 Run the following command to provision an Azure Container Registry in your subscription.  Be sure to replace `yourRegistryName` with a unique name for your registry, as it must be a globally unique name, something like `XXXbicepregistry`, where XXX are your initials.
