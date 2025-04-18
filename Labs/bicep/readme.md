@@ -12,6 +12,23 @@ If you want to run through the official Learning Path from Microsoft Learn, labs
 
 ---
 
+## Clone the repository to your lab VM
+
+Open a PowerShell terminal and run the following commands to clone the repository to your local machine and open VS Code.
+
+```powershell
+cd C:\Users\StudentPC\source\repos
+git clone https://github.com/lluppesms/activate.bicep.course.git
+cd .\activate.bicep.course\
+code .
+```
+
+It should look like this:
+
+![PowerShell Commands](../../img/CloneTheRepo.png)
+
+---
+
 ## Bicep Labs
 
 This workshop will cover a series of labs, in which you will learn to create effective Bicep Templates.
