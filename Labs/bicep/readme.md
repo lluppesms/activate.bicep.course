@@ -8,7 +8,8 @@ If you want to run through the official Learning Path from Microsoft Learn, labs
 
 * If you have not created an Organization and a Project in Azure DevOps, please start with the preparation tasks in Module 2: Project, Lab 1.
 
-* If you need a custom Build Agent and have not created one yet, you can install a Build Agent on your VM or your Local Machine.  Please follow the instructions in Module 4, Lab 1, Task 3.
+<!-- 
+* If you need a custom Build Agent and have not created one yet, you can install a Build Agent on your VM or your Local Machine.  Please follow the instructions in Module 4, Lab 1, Task 3. -->
 
 ---
 
@@ -29,12 +30,21 @@ It should look like this:
 
 ## Before You Start
 
+### Complete the previous labs before you start this one
+
 * You should have an Azure DevOps Project set up
   * see Module 2: Project, Lab 1
+<!-- 
 * You should have a Self Hosted Agent installed on the Lab VM if you want to run YML pipelines
-  * see Module 4, Lab 1, Task 3
+  * see Module 4, Lab 1, Task 3 -->
+
+### Install the VS Code Bicep Extension
+
 * Make sure your Lab VM's VS Code has the Bicep extension installed. Click on the `Manage` icon in the left-hand menu, and then click on `Extensions`. Search for `Bicep` and install it if it is not already installed.
 ![Bicep VS Code Extension](../../img/Bicep-VSCode-Extension.png)
+
+### Update the AZ CLI
+
 * You may have to update the AZ CLI tool, as some of the Lab VM's are not up to date. You can do this by running the following command in a PowerShell terminal to check the version and to upgrade if necessary.  You should be running version 2.68.0 or higher.
 
   ```powershell
@@ -47,6 +57,8 @@ It should look like this:
   If you get an error like the one below, you will know you need to upgrade your AZ CLI because it is not an error you should encounter.
 
   ![AZ CLI Error](../../img/Update-AZ-CLI-Error.png)
+
+### Log in to Azure
 
 * You should run the `az login` command to log in to your Azure account. This will open a browser window and prompt you to log in, and then once it finishes, you can select your subscription and should be ready to go.
 
