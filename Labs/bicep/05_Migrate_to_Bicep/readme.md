@@ -99,4 +99,4 @@ If you want to explore more on this with VMs and VNETs, you can follow these lab
 
 This completes this lab.
 
-[Next Lab](../06_Modules/readme.md) | [Previous Lab](../04_Conditions_and_Loops/readme.md) | [Table of Contents](./readme.md)
+[Next Lab](../06_Modules/readme.md) | [Previous Lab](../04_Conditions_and_Loops/readme.md) | [Table of Contents](../readme.md#bicep-labs)

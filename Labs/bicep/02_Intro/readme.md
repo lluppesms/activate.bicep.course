@@ -88,4 +88,4 @@ az monitor log-analytics workspace delete `
 
 At this point, we have successfully connected to Azure and deployed a resource using a Bicep template! This completes this lab.
 
-[Next Lab](../03_Parameters/readme.md) | [Previous Lab](../02_Intro/readme.md) | [Table of Contents](./readme.md)
+[Next Lab](../03_Parameters/readme.md) | [Previous Lab](../02_Intro/readme.md) | [Table of Contents](../readme.md#bicep-labs)

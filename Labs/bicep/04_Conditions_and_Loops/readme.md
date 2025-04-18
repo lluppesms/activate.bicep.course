@@ -117,4 +117,4 @@ You can see your outputs in the command line window, but you can also view these
 
 This completes this lab.
 
-[Next Lab](../05_Migrate_to_Bicep/readme.md) | [Previous Lab](../03_Parameters/readme.md) | [Table of Contents](./readme.md)
+[Next Lab](../05_Migrate_to_Bicep/readme.md) | [Previous Lab](../03_Parameters/readme.md) | [Table of Contents](../readme.md#bicep-labs)
