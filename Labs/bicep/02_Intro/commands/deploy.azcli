@@ -1,0 +1,19 @@
+# cd Labs\Bicep\02_Intro
+
+## In order to create things in Azure you may need to login to Azure first
+az login
+## If you have more than one subscription and need to set the default to a specific one
+az account set --subscription <<yourSubscriptionId>>
+
+## Create resource group (if needed)
+az group create --name rg-lod --location eastus
+az group show --resource-group rg-lod
+
+## 1. Deploy the simplest bicep file
+az deployment group create --resource-group rg-lod --template-file simplest-loganalytics.bicep
+
+## Cleanup Workspace (with forced purge - no recovery possible)
+az monitor log-analytics workspace delete --resource-group rg-lod --workspace-name logAnalytics01 --force
+
+## Cleanup Resource Group
+# az group delete --name rg-lod --yes --no-wait
