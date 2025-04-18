@@ -89,7 +89,6 @@ If you want to explore more on this with VMs and VNETs, you can follow these lab
 
 - [MS Learn - Intermediate Bicep Exercise - Test and deploy your converted template](https://learn.microsoft.com/en-us/training/modules/migrate-azure-resources-bicep/7-exercise-test-deploy-converted-template)
 
-<!-- ------------------------------------------------------------------------------------------ -->
 ---
 
 This completes this lab.

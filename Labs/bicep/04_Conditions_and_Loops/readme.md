@@ -107,7 +107,6 @@ You can see your outputs in the command line window, but you can also view these
 
 ![Bicep Outputs](img/Outputs_01.png)
 
-<!-- ------------------------------------------------------------------------------------------ -->
 ---
 
 This completes this lab.

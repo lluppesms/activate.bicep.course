@@ -86,7 +86,6 @@ az deployment group create `
 
 When it completes, review your resources in the portal and you should see the Log Analytics Workspace and Application Insights resources that were created by the modules.
 
-<!-- ------------------------------------------------------------------------------------------ -->
 ---
 
 To learn more about how to setup an automated CI/CD publishing routine for pushing Bicep files into the ACR each time the source changes, see: [this document](./automation/readme.md).
