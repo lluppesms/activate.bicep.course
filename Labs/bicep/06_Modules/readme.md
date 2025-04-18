@@ -9,7 +9,7 @@ In this lab we will re-use that file as a module, and include it in another bice
 To begin this lab, open the Terminal and change the directory to the one where the Bicep file is located, using a command similar to the following:
 
 ``` bash
-cd ..\06_Module\
+cd ..\06_Modules\
 ```
 
 Open the main-local-module.bicep file in this folder and look at the contents.  At the bottom of the file insert this new block of code.
