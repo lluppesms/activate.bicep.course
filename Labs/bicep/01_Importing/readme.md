@@ -10,4 +10,4 @@ Pre-Req Exercises:
 
 This completes this lab.
 
-[Next Lab](../02_Intro_/readme.md) | [Table of Contents](../readme.md)
+[Next Lab](../02_Intro/readme.md) | [Table of Contents](../readme.md)
