@@ -35,6 +35,26 @@ It should look like this:
   * see Module 4, Lab 1, Task 3
 * Make sure your Lab VM's VS Code has the Bicep extension installed. Click on the `Manage` icon in the left-hand menu, and then click on `Extensions`. Search for `Bicep` and install it if it is not already installed.
 ![Bicep VS Code Extension](../../img/Bicep-VSCode-Extension.png)
+* You may have to update the AZ CLI tool, as some of the Lab VM's are not up to date. You can do this by running the following command in a PowerShell terminal to check the version and to upgrade if necessary.  You should be running version 2.68.0 or higher.
+
+  ```powershell
+  az version
+  az upgrade
+  ```
+
+  ![Update AZ CLI](../../img/Update-AZ-CLI.png)
+
+  If you get an error like the one below, you will know you need to upgrade your AZ CLI because it is not an error you should encounter.
+
+  ![AZ CLI Error](../../img/Update-AZ-CLI-Error.png)
+
+* You should run the `az login` command to log in to your Azure account. This will open a browser window and prompt you to log in, and then once it finishes, you can select your subscription and should be ready to go.
+
+  ```powershell
+  az login
+  ```
+
+  ![AZ Login](../../img/AZ-Login.png)
 
 ---
 
