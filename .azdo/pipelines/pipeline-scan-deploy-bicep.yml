@@ -1,0 +1,42 @@
+# ------------------------------------------------------------------------------------------------------------------------
+# Pipeline calling reusable templates to scan files and deploy bicep files
+# ------------------------------------------------------------------------------------------------------------------------
+name: $(date:yyyy).$(date:MM).$(date:dd)$(rev:.r)
+
+trigger: none
+
+pool:
+  vmImage: ubuntu-latest
+  
+# ----------------------------------------------------------------------------------------------------
+variables:
+  - template: vars/var-common.yml
+
+# ----------------------------------------------------------------------------------------------------
+parameters:
+  # GHAS is not available in the lab VM, so the scanning choices are commented out for now
+  # - name: runMSDevSecOpsScan
+  #   displayName: Run MS DevSecOps Scan
+  #   type: boolean
+  #   default: true
+  # - name: runGHASScan
+  #   displayName: Run GHAS Scan
+  #   type: boolean
+  #   default: false
+  - name: runBicepDeploy
+    displayName: Deploy Bicep 
+    type: boolean
+    default: true
+
+# ----------------------------------------------------------------------------------------------------
+stages:
+  - template: templates/scan-code-template.yml
+    parameters:
+      runMSDevSecOpsScan: true # ${{ parameters.runMSDevSecOpsScan }}
+      runGHASScan: false # ${{ parameters.runGHASScan }}
+
+  - ${{ if eq(lower(parameters.runSmokeTests), 'true') }}:
+    - template: templates/deploy-bicep-template.yml
+      parameters:
+        templateFileName: 'main-simple.bicep'
+        parameterFileName: 'main-simple.bicepparam'
