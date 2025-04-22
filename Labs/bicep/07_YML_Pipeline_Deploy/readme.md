@@ -62,9 +62,9 @@ Save this into the main branch and run the pipeline:
 
 ## Exercise 2: View the Pipeline Results
 
-When it runs, the template will contain one one stage with one job --> deploy this one bicep file. Let's now go there and check the logs:
+When it runs, the template will contain one one stage with one job --> deploy this one bicep file. Let's now go there and check the logs.
 
-* Goto Pipelines -> Pipelines
+<!-- * Goto Pipelines -> Pipelines
 * Select our new pipeline
 
 Before we continue, let's rename the pipeline first:
@@ -84,6 +84,7 @@ Our pipeline was now renamed and is now easier to find.
 
 * Select the last run
 * Select the job `Job`
+ -->
 
 You should see the steps that are coming from our template, but also a warning that some permissions are missing. The first time we run a pipeline, we need to give it permission to access the resources that it needs. In this case, we need to give it permission to access the service connection that we created in the previous lab, and the environment, and the agent pool.
 
@@ -105,7 +106,11 @@ Hopefully you will see a success message at the end of the deployment and all of
 
 ## Exercise 3: Add a Scan Code Template
 
-Next we will add another job to scan the code for security vulnerabilities and other issues. Return to the pipeline editor and add these lines at the bottom of your pipeline.  Make sure the indentation is correct and the `- stage:` lines up with the previous stage, or your pipeline will fail to run successfully.
+Next we will add another job to scan the code for security vulnerabilities and other issues. Return to the pipeline editor 
+
+![pipeline editor](img/095_Edit_Pipeline.png)
+
+Add these lines at the bottom of your pipeline.  Make sure the indentation is correct and the `- stage:` lines up with the previous stage, or your pipeline will fail to run successfully.
 
 ```yml
 
@@ -117,11 +122,11 @@ Next we will add another job to scan the code for security vulnerabilities and o
 
 Once you save the changes and run this job, you will see that the pipeline now has two stages. The first stage is the deployment of the bicep file, and the second stage is the scan code job.
 
-![pipeline steps](img/100_Multi-Stage-Pipeline.png)
+![pipeline steps](img/100_Multi-Stage_Pipeline.png)
 
 Once the pipeline has run, you can see the results of the scan code job.  This job will scan the code for security vulnerabilities and other issues.  Click on the `Scans` tab to see the results of the scans. There should be several warnings found in this repository as this code is not hardened for production use.
 
-![pipeline steps](img/120_Scan-Results.png)
+![pipeline steps](img/120_Scan_Results.png)
 
 ---
 
