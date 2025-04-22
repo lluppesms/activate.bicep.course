@@ -1,4 +1,4 @@
-# Advanced Bicep Tips and Tricks
+# Lab 8 - Advanced Bicep Tips and Tricks
 
 ## 1. Use a resource names file
 
@@ -103,4 +103,4 @@ az deployment group create `
 
 This completes this lab.
 
-[Previous Lab](../08_Deploy_Targets/readme.md) | [Table of Contents](../readme.md#bicep-labs)
+[Next Lab](../09_Bicep_Registries/readme.md) | [Previous Lab](../07_YML_Pipeline_Deploy/readme.md) | [Table of Contents](../readme.md#bicep-labs)

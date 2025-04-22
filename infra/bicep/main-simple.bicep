@@ -12,6 +12,7 @@ param runDateTime string = utcNow()
 // --------------------------------------------------------------------------------
 // a suffix to put on all of the deployment names to make them unique
 var deploymentSuffix = '-${runDateTime}'
+var resourceGroupName = resourceGroup().name
 
 // Tags that are common to all resources
 var commonTags = {         
@@ -37,3 +38,8 @@ module logAnalyticsWorkspaceModule 'loganalytics.bicep' = {
     commonTags: commonTags
   }
 }
+
+// --------------------------------------------------------------------------------
+output SUBSCRIPTION_ID string = subscription().subscriptionId
+output RESOURCE_GROUP_NAME string = resourceGroupName
+output WORKSPACE_NAME string = logAnalyticsWorkspaceModule.outputs.name

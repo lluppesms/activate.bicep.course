@@ -177,4 +177,4 @@ az deployment group create `
 
 This completes this lab.
 
-[Next Lab](../07_Bicep_Registries/readme.md) | [Previous Lab](../05_Migrate_to_Bicep/readme.md) | [Table of Contents](../readme.md#bicep-labs)
+[Next Lab](../07_YML_Pipeline_Deploy/readme.md) | [Previous Lab](../05_Migrate_to_Bicep/readme.md) | [Table of Contents](../readme.md#bicep-labs)

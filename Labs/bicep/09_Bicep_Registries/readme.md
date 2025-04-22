@@ -1,4 +1,4 @@
-# Bicep Lab 7 - Using Bicep Modules from a Remote Registry
+# Bicep Lab 9 - Using Bicep Modules from a Remote Registry
 
 In this lab we will walk through the process of creating our own private registry and then deploying modules using the modules from that registry.
 
@@ -96,4 +96,4 @@ To learn more about how to setup an automated CI/CD publishing routine for pushi
 
 This completes this lab.
 
-[Next Lab](../08_Deploy_Targets/readme.md) | [Previous Lab](../06_Modules/readme.md) | [Table of Contents](../readme.md#bicep-labs)
+[Next Lab](../10_Deploy_Targets/readme.md) | [Previous Lab](../08_Tips/readme.md) | [Table of Contents](../readme.md#bicep-labs)

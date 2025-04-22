@@ -87,15 +87,14 @@ This workshop will cover a series of labs, in which you will learn to create eff
 ### Reusable Bicep
 
 * [Lab 6 - Using Local and Public Modules in a Bicep Template](./06_Modules/readme.md)
-* [Lab 7 - Creating Private Bicep Registries](./07_Bicep_Registries/readme.md)
+* [Lab 7 - Deploying via a Pipeline](./07_YML_Pipeline_Deploy/readme.md)
+* [Lab 8 - Tips and Tricks](./08_Tips/readme.md)
 
-### Advanced Bicep
+### Advanced Bicep References (not in Lab VM)
 
-* [Lab 8 - Deploy Resources to Multiple Scopes](./08_Deploy_Targets/readme.md)
-* [Lab 9 - Tips and Tricks](./09_Tips/readme.md)
-
-<!-- * [Lab 99 - Publish Reusable Code with Template Specs](./archives/99_Bicep_Template_Specs/readme.md) -->
-<!-- * [Lab 98 - CICD Pipelines](./archives/98_CICD_Pipelines/readme.md) -->
+* [Lab 9 - Creating Private Bicep Registries](./09_Bicep_Registries/readme.md)
+* [Lab 10 - Deploy Resources to Multiple Scopes](./10_Deploy_Targets/readme.md)
+<!-- * [Lab 11 - Publish Reusable Code with Template Specs](./archives/11_Bicep_Template_Specs/readme.md) -->
 
 ---
 

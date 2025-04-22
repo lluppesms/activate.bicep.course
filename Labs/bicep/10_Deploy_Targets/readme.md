@@ -1,4 +1,4 @@
-# Bicep Lab 8 - Deploy resources to subscriptions, management groups and Tenants
+# Bicep Lab 10 - Deploy resources to subscriptions, management groups and Tenants
 
 Up to this point, we have been deploying everything directly into a resource group. But what if we wanted to deploy at another level, like create a NEW resource group? Or deploy to a subscription, management group or tenant?
 
@@ -33,4 +33,4 @@ Deploying to a Management Group:
 
 This completes this lab.
 
-[Next Lab](../09_Tips/readme.md) | [Previous Lab](../07_Bicep_Registries/readme.md) | [Table of Contents](../readme.md#bicep-labs)
+[Next Lab](../11_Bicep_Template_Specs/readme.md) | [Previous Lab](../09_Bicep_Registries/readme.md) | [Table of Contents](../readme.md#bicep-labs)

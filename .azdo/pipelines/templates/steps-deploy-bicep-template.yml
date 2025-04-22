@@ -7,18 +7,10 @@ parameters:
   - name: deploymentMode
     default: 'Incremental' # 'Incremental' | 'Complete' | 'Validation'
   - name: parseBicepOutputs
-    default: false
+    default: true
 
 # ------------------------------------------------------------------------------------------------------------------------
 steps:
-  - task: AzureCLI@2
-    displayName: 'Create $(environmentName) Resource Group'
-    inputs:
-      azureSubscription: ${{ parameters.serviceConnectionName }}
-      scriptType: bash
-      scriptLocation: inlineScript
-      inlineScript: az group create --name $(resourceGroupName) --location $(location) --tags LastDeployed=$(runDateTime) Application=$(appName) Environment=$(environmentName)
-
   - task: AzureResourceManagerTemplateDeployment@3
     displayName: 'Publish $(environmentName) Bicep Resources'
     name: deployBicep
