@@ -112,8 +112,6 @@ Next we will add another job to scan the code for security vulnerabilities and o
 
 Add these lines at the bottom of your pipeline.  Make sure the indentation is correct and the `- stage:` lines up with the previous stage, or your pipeline will fail to run successfully.
 
-```yml
-
 ``` yml
 - stage: BicepDeploy  
   jobs:
