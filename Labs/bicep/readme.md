@@ -94,7 +94,7 @@ This workshop will cover a series of labs, in which you will learn to create eff
 
 * [Lab 9 - Creating Private Bicep Registries](./09_Bicep_Registries/readme.md)
 * [Lab 10 - Deploy Resources to Multiple Scopes](./10_Deploy_Targets/readme.md)
-<!-- * [Lab 11 - Publish Reusable Code with Template Specs](./archives/11_Bicep_Template_Specs/readme.md) -->
+* [Lab 11 - Publish Reusable Code with Template Specs](./11_Bicep_Template_Specs/readme.md)
 
 ---
 
