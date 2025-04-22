@@ -46,7 +46,7 @@ On line 11, we are using the utcNow() function to default the value of a paramet
 
 ![Main Bicep 2](img/MainBicep_02.png)
 
-When this main.bicep runs, it will create deployments with unique names. The main.bicep file is the entry point for the deployment, and it automatically gets a name with a datetime stamp and a unique identifier, as shown in #1.  The other modules each get a name with the runDateTime stamp appended to it, as shown in #2, so they will be retained in the portal for a while.
+When this main.bicep runs, it will create deployments with unique names. The main.bicep file is the entry point for the deployment, and it automatically gets a name with a datetime stamp and a unique identifier, as shown in number 1.  The other modules each get a name with the runDateTime stamp appended to it, as shown in number 2, so they will be retained in the portal for a while.
 
 ![Main Bicep 3](img/MainBicep_03.png)
 
